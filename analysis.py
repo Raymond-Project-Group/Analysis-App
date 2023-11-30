@@ -26,6 +26,7 @@ def read_csv(file, id_pws=None):
     print(f'id_pws column: {df["id_pws"]}') # TESTING
     print(f'Unique id_pws in the DataFrame: {df["id_pws"].unique()}') # TESTING
     if id_pws:
+        df['id_pws'] = df['id_pws'].str.strip()
         print(f'Focusing on id_pws: {id_pws}') # TESTING
         df = df[df['id_pws'] == id_pws]
         print(f'Unique id_pws in the DataFrame after filtering: {df["id_pws"].unique()}') # TESTING
@@ -38,14 +39,14 @@ def plot_with_plotly(df):
     fig = make_subplots(rows=3, cols=1, shared_xaxes=True, subplot_titles=("Temperature", "Humidity", "Pressure"))
 
     # sub plot lines
-    fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['temperature_fz'], mode='markers', name='Temperature FZ', text=df.apply(lambda row: f'protocol_pws: {row.protocol_pws}, id_pws: {row.id_pws}', axis=1)), row=1, col=1)
+    fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['temperature_fz'], mode='markers', name='Temperature FZ'), row=1, col=1)
     fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['temperature_pws'], mode='markers', name='Temperature PWS', text=df.apply(lambda row: f'protocol_pws: {row.protocol_pws}, id_pws: {row.id_pws}', axis=1)), row=1, col=1)
 
-    fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['humidity_fz'], mode='markers', name='Humidity FZ', text=df.apply(lambda row: f'protocol_pws: {row.protocol_pws}, id_pws: {row.id_pws}', axis=1)), row=2, col=1)
-    fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['humidity_pws'], mode='markers', name='Humidity PWS', text=df.apply(lambda row: f'protocol_pws: {row.protocol_pws}, id_pws: {row.id_pws}', axis=1)), row=2, col=1)
+    fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['humidity_fz'], mode='markers', name='Humidity FZ'), row=2, col=1)
+    fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['humidity_pws'], mode='markers', name='Humidity PWS' ,text=df.apply(lambda row: f'protocol_pws: {row.protocol_pws}, id_pws: {row.id_pws}', axis=1)), row=2, col=1)
 
-    fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['pressure_fz'], mode='markers', name='Pressure FZ', text=df.apply(lambda row: f'protocol_pws: {row.protocol_pws}, id_pws: {row.id_pws}', axis=1)), row=3, col=1)
-    # fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['pressure_pws'], mode='markers', name='Pressure PWS', text=df.apply(lambda row: f'protocol_pws: {row.protocol_pws}, id_pws: {row.id_pws}', axis=1)), row=3, col=1) # Currently no pressure from PWS
+    fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['pressure_fz'], mode='markers', name='Pressure FZ'), row=3, col=1)
+    # fig.add_trace(pl.Scatter(x=df['time_gps'], y=df['pressure_pws'], mode='markers', name='Pressure PWS'), row=3, col=1) # Currently no pressure from PWS
 
     # title at top
     fig.update_layout(title='Meteorological Data vs. Time')
