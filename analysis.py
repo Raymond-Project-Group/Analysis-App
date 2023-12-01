@@ -20,17 +20,19 @@ print(f'id_pws: {args.id_pws}') # TESTING
 
 
 def read_csv(file, id_pws=None):
-    print(f'Reading CSV file: {file}') # TESTING
-    column_names = ['temperature_fz', 'humidity_fz', 'pressure_fz', 'lat', 'long', 'time_gps', 'numSats_gps', 'temperature_pws', 'humidity_pws', 'time_pws', 'protocol_pws', 'id_pws']
+    print(f'Reading CSV file: {file}')  # TESTING
+    column_names = ['temperature_fz', 'humidity_fz', 'pressure_fz', 'lat', 'long', 'time_gps', 'numSats_gps',
+                     'temperature_pws', 'humidity_pws', 'time_pws', 'protocol_pws', 'id_pws', 'freq_pws', 'rssi_pws']
     df = pd.read_csv(file, names=column_names, usecols=range(12))
-    print(f'id_pws column: {df["id_pws"]}') # TESTING
-    print(f'Unique id_pws in the DataFrame: {df["id_pws"].unique()}') # TESTING
-    if id_pws:
-        df['id_pws'] = df['id_pws'].str.strip()
-        print(f'Focusing on id_pws: {id_pws}') # TESTING
+    print(f'id_pws column: {df["id_pws"]}')  # TESTING
+    print(f'Unique id_pws in the DataFrame: {df["id_pws"].unique()}')  # TESTING
+
+    if id_pws is not None:
+        print(f'Focusing on id_pws: {id_pws}')  # TESTING
         df = df[df['id_pws'] == id_pws]
-        print(f'Unique id_pws in the DataFrame after filtering: {df["id_pws"].unique()}') # TESTING
+        print(f'Unique id_pws in the DataFrame after filtering: {df["id_pws"].unique()}')  # TESTING
     return df
+
 
 def plot_with_plotly(df):
     print('Plotting data...') # TESTING
