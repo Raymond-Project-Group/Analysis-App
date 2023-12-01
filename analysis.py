@@ -3,11 +3,10 @@ import plotly.graph_objects as pl
 from plotly.subplots import make_subplots
 import argparse
 import math
-import numpy as np
-
 
 # Create the parser
 parser = argparse.ArgumentParser(description='Process some integers.')
+
 
 # Add the arguments
 parser.add_argument('csv_file', type=str, help='The CSV file to process')
@@ -98,7 +97,6 @@ def absHumid(humid,temp):
 
 def celsius_to_fahrenheit(celsius):
     return celsius * 9/5 + 32
-
 
 # use args.csv_file as the CSV file name
 df = read_csv(args.csv_file, id_pws=args.id_pws, temp_unit=args.tu, hum_unit=args.hu)
