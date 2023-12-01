@@ -5,6 +5,7 @@ __pycache__/
 
 #CSV files
 filtered_*.csv
+new*.csv
 
 # C extensions
 *.so
