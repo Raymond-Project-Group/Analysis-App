@@ -30,7 +30,6 @@ def read_csv(file, id_pws=None, temp_unit='c', hum_unit='r'):
     df = pd.read_csv(file, names=column_names, usecols=range(12))
 
     # Convert humidity from relative humidity to absolute humidity if --hu=a
-    # This is a simplified formula and might not be accurate for all conditions
     if hum_unit == 'a':
         df['humidity_fz'] = df.apply(lambda row: absHumid(row['humidity_fz'], row['temperature_fz']), axis=1)
         df['humidity_pws'] = df.apply(lambda row: absHumid(row['humidity_pws'], row['temperature_pws']), axis=1)
